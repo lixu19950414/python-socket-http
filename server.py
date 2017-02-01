@@ -11,6 +11,8 @@ CONFIGS = {
 	'port': 8084,
 }
 
+g_Break = False
+
 # Redirect Print function
 def Print(*args):
 	print reduce(lambda x, y: str(x) + str(y) , args)
@@ -78,6 +80,9 @@ class Server(object):
 	def get_connection(self):
 		# Loop to get connections
 		while True:
+			global g_Break
+			if g_Break:
+				return
 			self.socket.listen(1) 
 
 			conn, addr = self.socket.accept() 
@@ -110,7 +115,12 @@ class Server(object):
 					r_file = '/index.html'
 
 				if r_file == '/break':
-					break
+					g_Break = True
+					header = self.header_gen(200)
+					response = 'Break Success.'
+					conn.send(header + response)
+					conn.close()
+					continue
 
 				request_file = self.host_dir + r_file
 				# request_file = os.path.join(self.host_dir, r_file)

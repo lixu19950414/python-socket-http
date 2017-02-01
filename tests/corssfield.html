@@ -3,14 +3,21 @@
 <head> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 <title>你好</title>
-<script type="text/javascript" src="js/jquery.min.js"></script>
 </head> 
 
 <body> 
-<div id="aa"></div> 
+<pre id="t"></pre>
+<script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript">
-	htmlobj=$.ajax({url:"http://127.0.0.1:8083/1.plist",async:false});
-	console.log(htmlobj.responseText);
+	htmlobj=$.ajax({
+		url:"http://127.0.0.1:8084/1.plist",
+		async:true,
+		success:function(data){
+			console.log(data);
+			$('#t').text(data);
+		},
+	});
+	
 </script>
 </body>
 </html>
