@@ -37,6 +37,8 @@ class Server(object):
 		Print('Server waiting for requests...')
 		Print('-' * 60)
 		self.get_connection()
+		self.socket.close()
+		Print('Break loop, will terminate...')
 
 	def header_gen(self,status):
 		# Generate HTTP Headers.
@@ -106,6 +108,9 @@ class Server(object):
 				r_file = req_file.split('?')[0]
 				if(r_file == '/'):
 					r_file = '/index.html'
+
+				if r_file == '/break':
+					break
 
 				request_file = self.host_dir + r_file
 				# request_file = os.path.join(self.host_dir, r_file)
