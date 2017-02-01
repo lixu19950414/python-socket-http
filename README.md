@@ -1,5 +1,5 @@
 # python-socket-http
 
-## Only support get method now.
+## Only support GET method now.
 ## Args will be ignored.
 ## Supports cross origin.
